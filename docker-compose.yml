@@ -26,7 +26,6 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/tba_development
       REDIS_URL: redis://redis:6379/0
-      RAILS_ENV: development
     volumes:
       - .:/app
       - storage:/app/storage
@@ -43,12 +42,10 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/tba_development
       REDIS_URL: redis://redis:6379/0
-      RAILS_ENV: development
     volumes:
       - storage:/app/storage
-    command: ["bundle", "exec", "sidekiq", "-r", "./config/environment.rb"]
+    command: ["bundle", "exec", "sidekiq"]
 
 volumes:
   postgres_data:
   storage:
-
