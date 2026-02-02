@@ -45,7 +45,6 @@ services:
       PORT: "9004"
       SECRET_KEY_BASE: 1315ebbbe0ad21183d92874caadfe19a3a7c4ede7d3fea296f1e808b2561d071
     volumes:
-      - .:/app
       - storage:/app/storage
     ports:
       - "9004:9004" # Map host port 9001 to container port 9001

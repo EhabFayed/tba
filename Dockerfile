@@ -7,7 +7,8 @@ RUN apt-get update -qq && \
 
 # Set working directory
 WORKDIR /app
-
+COPY bin/docker-entrypoint /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint
 # Copy only Gemfile first (to optimize caching)
 COPY Gemfile ./
 
@@ -25,12 +26,10 @@ RUN bundle install
 COPY . .
 RUN chmod +x bin/*
 
-COPY bin/docker-entrypoint /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint
 
 # Expose Rails port
 EXPOSE 9004
 ENTRYPOINT ["docker-entrypoint"]
 
 # Start Rails server
-CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p ${PORT:-9004}"]
+CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p ${PORT:-9004}"]
