@@ -57,7 +57,7 @@ Rails.application.configure do
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("RAILS_HOST", "backend.mila-knight.com"),
+    host: ENV.fetch("RAILS_HOST", "tbabackend.mila-knight.com"),
     protocol: ENV.fetch("RAILS_PROTOCOL", "https")
   }
 
@@ -72,8 +72,8 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-   config.hosts.clear
-    config.action_dispatch.trusted_proxies = ActionDispatch::RemoteIp::TRUSTED_PROXIES + [
+  config.hosts.clear
+  config.action_dispatch.trusted_proxies = ActionDispatch::RemoteIp::TRUSTED_PROXIES + [
     IPAddr.new("10.0.0.0/8"),       # Private network
     IPAddr.new("172.16.0.0/12"),    # Private network
     IPAddr.new("192.168.0.0/16"),  # Private network
