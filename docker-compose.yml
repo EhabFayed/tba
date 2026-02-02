@@ -65,7 +65,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-     RAILS_ENV: production
+    environment:
+      RAILS_ENV: production
       DATABASE_URL: postgres://postgres:password@db:5432/app_production
       REDIS_URL: redis://redis:6379/0
       # Use the same SECRET_KEY_BASE as app service
