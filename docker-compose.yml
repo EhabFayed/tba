@@ -49,7 +49,7 @@ services:
       - storage:/app/storage
     ports:
       - "9004:9004" # Map host port 9001 to container port 9001
-    command: ["bash", "-c", "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p ${PORT:-9004}"]
+    command: ["bash", "-c", "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p ${PORT:-9004}"]
     healthcheck:
       test: ["CMD", "sh", "-c", "curl -f http://localhost:${PORT:-9004}/up || exit 1"]
       interval: 10s

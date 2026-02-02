@@ -23,6 +23,7 @@ RUN bundle install
 
 # Copy the rest of the application source code
 COPY . .
+RUN chmod +x bin/*
 
 COPY bin/docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
@@ -32,4 +33,4 @@ EXPOSE 9004
 ENTRYPOINT ["docker-entrypoint"]
 
 # Start Rails server
-CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p ${PORT:-9004}"]
+CMD ["bash", "-c", "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p ${PORT:-9004}"]
