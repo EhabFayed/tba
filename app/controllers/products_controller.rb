@@ -66,15 +66,15 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(
       :category,
-       :description_ar,
-        :description_en,
-         product_photos_attributes: [
-          :id,
-          :alt_ar,
-          :alt_en,
-          :photo,
-          :is_arabic,
-          :_destroy
+      :description_ar,
+      :description_en,
+      product_photos_attributes: [
+        :id,
+        :alt_ar,
+        :alt_en,
+        :photo,
+        :is_arabic,
+        :_destroy
       ]
     )
   end

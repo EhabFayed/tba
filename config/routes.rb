@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :faqs, only: [:index, :create, :update, :destroy]
     resources :contents, only: [:index, :create, :update, :destroy]
   end
-  resources :blogs, only: [:index, :show, :create, :update, :destroy]
+  resources :products, only: [:index, :show, :create, :update, :destroy]
   get "blogs_landing", to: "web_site#blogs_landing"
   get "blog_show/", to: "web_site#blog_show"
   get '/faq_about_us', to: 'web_site#faq_about_us'
