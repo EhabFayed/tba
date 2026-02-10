@@ -12,7 +12,7 @@ class WebSiteController < ApplicationController
         category: blog.category,
         slug: blog.slug,
         slug_ar: blog.slug_ar,
-        photos: blog.blog_photos.map do |photo|
+        photos: blog.blog_photos.where(is_landing: false).map do |photo|
           {
             id: photo.id,
             url: photo.photo.attached? ? url_for(photo.photo) : nil,
@@ -40,12 +40,12 @@ class WebSiteController < ApplicationController
           meta_title_en: blog.meta_title_en,
           is_published: blog.is_published,
           is_highlighted: blog.is_highlighted,
-          photos: blog.blog_photos.map do |photo|
+          landing_photo: blog.blog_photos.where(is_landing: true).map do |photo|
             {
               id: photo.id,
               url: photo.photo.attached? ? url_for(photo.photo) : nil,
-              alt: photo.is_arabic ? photo.alt_ar : photo.alt_en,
-              is_arabic: photo.is_arabic
+              alt_ar: photo.alt_ar,
+              alt_en: photo.alt_en,
             }
           end,
           contents: blog.contents.where(is_deleted: false).order(:id).map do |content|

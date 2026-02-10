@@ -18,12 +18,20 @@ class BlogsController < ApplicationController
         meta_title_en: blog.meta_title_en,
         is_published: blog.is_published,
         is_highlighted: blog.is_highlighted,
-        photos: blog.blog_photos.map do |photo|
+        photos: blog.blog_photos.where(is_landing: false).map do |photo|
           {
             id: photo.id,
             url: photo.photo.attached? ? url_for(photo.photo) : nil,
             alt: photo.is_arabic ? photo.alt_ar : photo.alt_en,
             is_arabic: photo.is_arabic
+          }
+        end,
+        landing_photo: blog.blog_photos.where(is_landing: true).map do |photo|
+          {
+            id: photo.id,
+            url: photo.photo.attached? ? url_for(photo.photo) : nil,
+            alt_ar: photo.alt_ar,
+            alt_en: photo.alt_en,
           }
         end
       }
@@ -48,12 +56,20 @@ class BlogsController < ApplicationController
           meta_title_en: blog.meta_title_en,
           is_published: blog.is_published,
           is_highlighted: blog.is_highlighted,
-          photos: blog.blog_photos.map do |photo|
+          photos: blog.blog_photos.where(is_landing: false).map do |photo|
             {
               id: photo.id,
               url: photo.photo.attached? ? url_for(photo.photo) : nil,
               alt: photo.is_arabic ? photo.alt_ar : photo.alt_en,
               is_arabic: photo.is_arabic
+            }
+          end,
+          landing_photo: blog.blog_photos.where(is_landing: true).map do |photo|
+            {
+              id: photo.id,
+              url: photo.photo.attached? ? url_for(photo.photo) : nil,
+              alt_ar: photo.alt_ar,
+              alt_en: photo.alt_en,
             }
           end,
           contents: blog.contents.where(is_deleted: false).order(:id).map do |content|
@@ -138,6 +154,7 @@ class BlogsController < ApplicationController
         :alt_en,
         :photo,
         :is_arabic,
+        :is_landing,
         :_destroy
       ]
     )
