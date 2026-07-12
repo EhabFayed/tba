@@ -2,7 +2,7 @@ class WebSiteController < ApplicationController
  skip_before_action :authorize_request
 
  def blogs_landing
-    blogs= Blog.published.map do |blog|
+    blogs= Blog.published.order(:id).map do |blog|
       {
         id: blog.id,
         title_ar: blog.title_ar,
